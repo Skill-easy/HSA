@@ -62,6 +62,9 @@ class FirstpageState extends  State<FirstPage> {
         child: Column(
 
           children: <Widget>[
+      alignment:Alignment.centre,
+      color: Color.blue,
+      child:text("Welcome!",textDirection:TextDirection.ltr)
 
             getImageAsset(),
 
@@ -71,13 +74,13 @@ class FirstpageState extends  State<FirstPage> {
 
                     top: minimumPadding, bottom: minimumPadding),
 
-                child: TextField(
+                 child: TextField(
 
                   decoration: InputDecoration(
 
                       labelText: 'username',
 
-                      hintText: 'sadhguru',
+                      hintText: 'example:abc',
 
                       border: OutlineInputBorder(
 
@@ -131,7 +134,7 @@ class FirstpageState extends  State<FirstPage> {
 
         'image\WhatsApp Image 2020-02-06 at 22.27.41.jpeg');
 
-    Image image = Image(image: assetImage, width: 300.0, height: 300.0,);
+    Image image = Image(image: assetImage, width: 300.0, height: 120.0,);
 
     return Container(child: image, margin: EdgeInsets.all(minimumPadding),);
   }
