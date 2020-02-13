@@ -1,0 +1,138 @@
+import 'package:flutter/material.dart';
+
+void main()
+
+{
+
+  runApp(
+
+      MaterialApp(
+
+        title:'Human security assurence',
+
+        home:FirstPage(),
+
+      )
+
+  );
+
+}
+
+class FirstPage extends StatefulWidget {
+
+  @override
+
+  State<StatefulWidget> createState() {
+
+    return FirstpageState();
+
+  }
+
+}
+
+
+
+
+
+class FirstpageState extends  State<FirstPage> {
+
+  final minimumPadding = 10.0;
+
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+
+
+    return Scaffold(
+
+      resizeToAvoidBottomPadding: false,
+
+      appBar: AppBar(
+
+        title: Text('Human Security Assurance'),
+
+      ),
+
+      body: Container(
+
+
+        margin: EdgeInsets.all(minimumPadding),
+
+        child: Column(
+
+          children: <Widget>[
+
+            getImageAsset(),
+
+            Padding(
+
+                padding: EdgeInsets.only(
+
+                    top: minimumPadding, bottom: minimumPadding),
+
+                child: TextField(
+
+                  decoration: InputDecoration(
+
+                      labelText: 'username',
+
+                      hintText: 'sadhguru',
+
+                      border: OutlineInputBorder(
+
+                          borderRadius: BorderRadius.circular(6.0)
+
+                      )
+
+                  ),
+
+                )),
+
+
+            Padding(
+
+                padding: EdgeInsets.only(
+
+                    top: minimumPadding, bottom: minimumPadding),
+
+                child: TextField(
+
+                  decoration: InputDecoration(
+
+                      labelText: 'password',
+
+                      hintText: '######',
+
+                      border: OutlineInputBorder(
+
+                          borderRadius: BorderRadius.circular(6.0)
+
+                      )
+
+                  ),
+
+                )),
+
+
+          ],
+
+        ),
+
+      ),
+
+
+    );
+  }
+
+
+  Widget getImageAsset() {
+    AssetImage assetImage = AssetImage(
+
+        'image\WhatsApp Image 2020-02-06 at 22.27.41.jpeg');
+
+    Image image = Image(image: assetImage, width: 300.0, height: 300.0,);
+
+    return Container(child: image, margin: EdgeInsets.all(minimumPadding),);
+  }
+}
