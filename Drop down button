@@ -1,0 +1,12 @@
+var gender = ['male','female','others'];
+DropdownButton<String>(
+items: gender.map((String dropDownStringItem) {
+ return DropdownMenuItem<String> (
+ value: dropDownStringItem, 
+ child: Text(dropDownStringItem),
+ );
+}).toList(),
+onChanged:() {
+setState (() {     });
+},
+);
