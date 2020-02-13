@@ -1,0 +1,5 @@
+void cameraBytesToDetector({@required CameraController camera}){
+  camera.startByteStream( (image) {
+    // do something with the image stream here
+  });
+}
