@@ -1,0 +1,194 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    title: 'Human security assurence',
+    home: FirstPage(),
+  ));
+}
+
+class FirstPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return FirstpageState();
+  }
+}
+
+class FirstpageState extends State<FirstPage> {
+  final minimumPadding = 5.0;
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('human security assurance'),
+        ),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                getImageAsset(),
+                Padding(
+                    padding: EdgeInsets.all(minimumPadding),
+                    child: TextField(
+                      decoration: InputDecoration(
+                          labelText: ' Full Name',
+                          hintText: 'Enter name',
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4.0))),
+                    )),
+                Padding(
+                    padding: EdgeInsets.all(minimumPadding),
+                    child: TextField(
+                      decoration: InputDecoration(
+                          labelText: 'Email Address',
+                          hintText: 'abcd@gmail.com',
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4.0))),
+                    )),
+                Padding(
+                    padding: EdgeInsets.all(minimumPadding),
+                    child: TextField(
+                      decoration: InputDecoration(
+                          labelText: 'Mobile number',
+                          hintText: '0123456789',
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4.0))),
+                    )),
+                Padding(
+                    padding: EdgeInsets.all(minimumPadding),
+                    child: TextField(
+                      decoration: InputDecoration(
+                          labelText: 'Age',
+                          hintText: '000',
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4.0))),
+                    )),
+                Padding(
+                    padding: EdgeInsets.all(minimumPadding),
+                    child: TextField(
+                      obscureText: true,
+                      decoration: InputDecoration(
+                          labelText: 'Set Password',
+                          hintText: '#########',
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4.0))),
+                    )),
+                Padding(
+                    padding: EdgeInsets.all(minimumPadding),
+                    child: TextField(
+                      obscureText: true,
+                      decoration: InputDecoration(
+                          labelText: 'Confirm Password',
+                          hintText: '#########',
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4.0))),
+                    )),
+                Padding(
+                    padding: EdgeInsets.all(minimumPadding),
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: RaisedButton(
+                              child: Text('Sign up'),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SecondRoute()),
+                                );
+                              }),
+                        ),
+                        Expanded(
+                          child: Text(
+                            'Do you want to Volunteer',
+                            textDirection: TextDirection.ltr,
+                          ),
+                        ),
+                      ],
+                    )),
+              ],
+            ),
+          ),
+        ));
+  }
+
+  Widget getImageAsset() {
+    AssetImage assetImage = AssetImage('image/Hi.jpeg');
+
+    Image image = Image(
+      image: assetImage,
+      width: 50.0,
+      height: 50.0,
+    );
+
+    return Container(
+      child: image,
+      margin: EdgeInsets.all(minimumPadding),
+    );
+  }
+}
+
+class SecondRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      appBar: AppBar(title: Text('Login')),
+      body: Container(
+        margin: EdgeInsets.all(4.0),
+        child: Column(
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.all(5.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                      labelText: 'enter user name',
+                      hintText: 'shunmukh',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4.0))),
+                )),
+            Padding(
+                padding: EdgeInsets.all(4.0),
+                child: TextField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                      labelText: 'password',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4.0))),
+                )),
+            Padding(
+              padding: EdgeInsets.all(4.0),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child:
+                        RaisedButton(child: Text('LOG IN'), onPressed: () {}),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(4.0),
+                  ),
+                  Expanded(
+                    child: RaisedButton(
+                        child: Text('SIGN UP'),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => FirstPage()),
+                          );
+                        }),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
