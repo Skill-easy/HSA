@@ -25,6 +25,7 @@
         android:layout_alignParentBottom="true"
 
         android:layout_centerHorizontal="true"
+        
 
         android:background="@drawable/button"
 
@@ -51,3 +52,741 @@
 
 
 </RelativeLayout>
+
+Home » Android Camera App Tutorial – Create a Simple Camera App
+Android Camera App Tutorial – Create a Simple Camera App
+May 7, 2015 by Belal Khan 14 Comments
+
+
+ 
+Hello friends, so here is a new Android Camera App Tutorial. In this tutorial we will create a simple Android Camera App. So lets begin.
+
+Creating Project for Android Camera App Tutorial
+This is so simple open Android Studio and create a new project.
+Now finish the things and you will get your MainActivity.
+In this time we will try to make User Interface looks good.
+Designing UI
+I am creating a simple Button at the bottom of the activity. As you can see below.
+android camera app tutorial
+activity_main.xml
+
+I have used font-awesome for the camera icon. So lets first learn how can you add font awesome to your android project.
+Adding Font Awesome to Your Android Project
+Get the font fontawesome-webfont.ttf file from here.
+Now go to your project -> app -> src -> main
+Create a new folder named assets
+Paste the fontawesome-webfont.ttf which you have downloaded.
+android camera app tutorial
+Creating Assets
+
+Creating Main Activity Layout
+As you can see we have a single button at the bottom of our main activity.
+Over the button we will see the image that would be captured with our app.
+So we need an ImageView and a Button for this Android Camera App Tutorial’s main activity.
+Go to activity_main.xml
+And copy the following code
+activity_main.xmlXHTML
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/camera_button"
+        android:id="@+id/btnCamera"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button"
+        android:textColor="#ffd3ffe5"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/capturedImage"
+        android:layout_above="@+id/btnCamera">
+
+    </ImageView>
+
+</RelativeLayout>
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+ 
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/camera_button"
+        android:id="@+id/btnCamera"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button"
+        android:textColor="#ffd3ffe5"
+        android:textStyle="bold" />
+ 
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/capturedImage"
+        android:layout_above="@+id/btnCamera">
+ 
+    </ImageView>
+ 
+</RelativeLayout>
+
+ 
+
+
+
+
+
+    <string name="camera_button">&#xf030; Take Picture</string>
+    <?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/button_pressed"
+        android:state_pressed="true" />
+    <item android:drawable="@color/button_pressed"
+        android:state_focused="true" />
+    <item android:drawable="@color/button_normal" />
+</selector>
+public class MainActivity extends ActionBarActivity {
+ 
+    private Button btnCamera;
+    private ImageView capturedImage;
+ 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+ 
+    }
+ 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+ 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+ 
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+ 
+        return super.onOptionsItemSelected(item);
+    }
+}
+@Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+ 
+        btnCamera = (Button) findViewById(R.id.btnCamera);
+ 
+        capturedImage= (ImageView) findViewById(R.id.capturedImage);
+    }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+ 
+        Typeface font = Typeface.createFromAsset( getAssets(), "fontawesome-webfont.ttf" );
+        btnCamera = (Button) findViewById(R.id.btnCamera);
+ 
+        capturedImage= (ImageView) findViewById(R.id.capturedImage);
+ 
+        btnCamera.setTypeface(font);
+ 
+    }
+    private void openCamera() {
+        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 0);
+    }
+     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+ 
+        Typeface font = Typeface.createFromAsset( getAssets(), "fontawesome-webfont.ttf" );
+        btnCamera = (Button) findViewById(R.id.btnCamera);
+ 
+        capturedImage= (ImageView) findViewById(R.id.capturedImage);
+ 
+        btnCamera.setTypeface(font);
+ 
+        btnCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCamera();
+            }
+        });
+    }
+     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK) {
+            Bitmap bp = (Bitmap) data.getExtras().get("data");
+            capturedImage.setImageBitmap(bp);
+        }
+    }
+    Home » Android Camera App Tutorial – Create a Simple Camera App
+Android Camera App Tutorial – Create a Simple Camera App
+May 7, 2015 by Belal Khan 14 Comments
+
+
+ 
+Hello friends, so here is a new Android Camera App Tutorial. In this tutorial we will create a simple Android Camera App. So lets begin.
+
+Creating Project for Android Camera App Tutorial
+This is so simple open Android Studio and create a new project.
+Now finish the things and you will get your MainActivity.
+In this time we will try to make User Interface looks good.
+Designing UI
+I am creating a simple Button at the bottom of the activity. As you can see below.
+android camera app tutorial
+activity_main.xml
+
+I have used font-awesome for the camera icon. So lets first learn how can you add font awesome to your android project.
+Adding Font Awesome to Your Android Project
+Get the font fontawesome-webfont.ttf file from here.
+Now go to your project -> app -> src -> main
+Create a new folder named assets
+Paste the fontawesome-webfont.ttf which you have downloaded.
+android camera app tutorial
+Creating Assets
+
+Creating Main Activity Layout
+As you can see we have a single button at the bottom of our main activity.
+Over the button we will see the image that would be captured with our app.
+So we need an ImageView and a Button for this Android Camera App Tutorial’s main activity.
+Go to activity_main.xml
+And copy the following code
+activity_main.xmlXHTML
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/camera_button"
+        android:id="@+id/btnCamera"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button"
+        android:textColor="#ffd3ffe5"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/capturedImage"
+        android:layout_above="@+id/btnCamera">
+
+    </ImageView>
+
+</RelativeLayout>
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+ 
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/camera_button"
+        android:id="@+id/btnCamera"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button"
+        android:textColor="#ffd3ffe5"
+        android:textStyle="bold" />
+ 
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/capturedImage"
+        android:layout_above="@+id/btnCamera">
+ 
+    </ImageView>
+ 
+</RelativeLayout>
+
+ 
+As you can see in Button tag I have defined a string. So go to your strings.xml file and add the following code
+strings.xml
+
+    <string name="camera_button">&#xf030; Take Picture</string>
+1
+    <string name="camera_button">&#xf030; Take Picture</string>
+The initial value is the camera icon which I got from font awesome cheatsheet.
+Now see the background property of our android button. I have given a drawable resource there. So Inside your drawable folder create a new xml file named button.xml
+Add the following code inside that file.
+Thats it for the layout part. Now lets move to the coding part.
+Coding MainActivity.java
+Go to your MainActivity.java file
+We have declared instances for our button and imageview.
+Lets initialize them first in our onCreate method.
+Because we are using an external font we will need to set TypeFace for our button.
+
+ @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Typeface font = Typeface.createFromAsset( getAssets(), "fontawesome-webfont.ttf" );
+        btnCamera = (Button) findViewById(R.id.btnCamera);
+
+        capturedImage= (ImageView) findViewById(R.id.capturedImage);
+
+        btnCamera.setTypeface(font);
+
+    }
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+ @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+ 
+        Typeface font = Typeface.createFromAsset( getAssets(), "fontawesome-webfont.ttf" );
+        btnCamera = (Button) findViewById(R.id.btnCamera);
+ 
+        capturedImage= (ImageView) findViewById(R.id.capturedImage);
+ 
+        btnCamera.setTypeface(font);
+ 
+    }
+Now we will create a new method to open our camera.
+Open CameraJava
+
+    private void openCamera() {
+        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 0);
+    }
+1
+2
+3
+4
+    private void openCamera() {
+        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 0);
+    }
+We will call our open camera method on button click.
+So add an onClickListener to your button.
+MainActivity.javaJava
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Typeface font = Typeface.createFromAsset( getAssets(), "fontawesome-webfont.ttf" );
+        btnCamera = (Button) findViewById(R.id.btnCamera);
+
+        capturedImage= (ImageView) findViewById(R.id.capturedImage);
+
+        btnCamera.setTypeface(font);
+
+        btnCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCamera();
+            }
+        });
+    }
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+ 
+        Typeface font = Typeface.createFromAsset( getAssets(), "fontawesome-webfont.ttf" );
+        btnCamera = (Button) findViewById(R.id.btnCamera);
+ 
+        capturedImage= (ImageView) findViewById(R.id.capturedImage);
+ 
+        btnCamera.setTypeface(font);
+ 
+        btnCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCamera();
+            }
+        });
+    }
+Finally we will override the onActivityResult method to get the image.
+MainActivity.java
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK) {
+            Bitmap bp = (Bitmap) data.getExtras().get("data");
+            capturedImage.setImageBitmap(bp);
+        }
+    }
+1
+2
+3
+4
+5
+6
+7
+8
+9
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK) {
+            Bitmap bp = (Bitmap) data.getExtras().get("data");
+            capturedImage.setImageBitmap(bp);
+        }
+    }
+The final code for MainActivity.java would be
+MainActivity.java
+
+package net.simplifiedcoding.androidcameraapp;
+
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Typeface;
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.GridLayout;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TableLayout;
+
+
+public class MainActivity extends ActionBarActivity {
+
+    private Button btnCamera;
+    private ImageView capturedImage;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Typeface font = Typeface.createFromAsset( getAssets(), "fontawesome-webfont.ttf" );
+        btnCamera = (Button) findViewById(R.id.btnCamera);
+
+        capturedImage= (ImageView) findViewById(R.id.capturedImage);
+
+        btnCamera.setTypeface(font);
+
+        btnCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCamera();
+            }
+        });
+    }
+
+    private void openCamera() {
+        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 0);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK) {
+            Bitmap bp = (Bitmap) data.getExtras().get("data");
+            capturedImage.setImageBitmap(bp);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+package net.simplifiedcoding.androidcameraapp;
+ 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Typeface;
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.GridLayout;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TableLayout;
+ 
+ 
+public class MainActivity extends ActionBarActivity {
+ 
+    private Button btnCamera;
+    private ImageView capturedImage;
+ 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+ 
+        Typeface font = Typeface.createFromAsset( getAssets(), "fontawesome-webfont.ttf" );
+        btnCamera = (Button) findViewById(R.id.btnCamera);
+ 
+        capturedImage= (ImageView) findViewById(R.id.capturedImage);
+ 
+        btnCamera.setTypeface(font);
+ 
+        btnCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCamera();
+            }
+        });
+    }
+ 
+    private void openCamera() {
+        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 0);
+    }
+ 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK) {
+            Bitmap bp = (Bitmap) data.getExtras().get("data");
+            capturedImage.setImageBitmap(bp);
+        }
+    }
+ 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+ 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+ 
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+ 
+        return super.onOptionsItemSelected(item);
+    }
+}
