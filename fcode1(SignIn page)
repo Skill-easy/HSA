@@ -1,0 +1,78 @@
+import 'package:firebase/setup/home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase/setup/welcome.dart';
+
+class Loginpage  extends StatefulWidget {
+  @override
+  _LoginPageState createState() => new _LoginPageState();
+}
+
+class _LoginPageState extends State<Loginpage> {
+  String _email, _password;
+
+  final GlobalKey<FormState> _formkey=GlobalKey<FormState>();
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Singn In'),
+      ),
+      body: Form(
+        key: _formkey,
+          child: Column(
+        children: <Widget>[
+
+          TextFormField(
+            // ignore: missing_return
+            validator: (input) {
+              if (input.isEmpty) {
+                return 'please type email';
+              }
+            },
+            onSaved: (input) => _email = input,
+            decoration: InputDecoration(
+                labelText: 'email address'
+            ),
+          ),
+          TextFormField(
+            // ignore: missing_return
+            validator: (input) {
+              if (input.length < 6) {
+                return 'please provide password';
+              }
+            },
+            onSaved: (input) => _password = input,
+            decoration: InputDecoration(
+                labelText: 'password'
+            ),
+            obscureText: true,
+          ),
+          RaisedButton(onPressed: signIn,
+            child: Text('sign in'),
+          ),
+           RaisedButton(onPressed: (){
+             Navigator.push(context,MaterialPageRoute(builder: (context)=>SignUpPage()));
+           }
+           )
+          ],
+      )),
+    );
+  }
+
+  Future<void> signIn() async {
+    final formState = _formkey.currentState;
+
+    if (formState.validate()) {
+      formState.save();
+      try {
+        AuthResult user = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: _email, password: _password);
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>Home( )));
+      }catch (e) {
+        print(e.message);
+      }
+    }
+  }
+}
