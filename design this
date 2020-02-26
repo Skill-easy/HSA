@@ -1,0 +1,85 @@
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as path;
+import 'package:firebase/setup/chatPage.dart';
+import'package:firebase_database/firebase_database.dart';
+import'package:file_picker/file_picker.dart';
+
+class Upload extends StatefulWidget {
+  @override
+  _UploadState createState() => _UploadState();
+}
+
+class _UploadState extends State<Upload> {
+   File _image;
+  String _uploadFileURl;
+  String _downloadURL;
+  final _firebase= FirebaseDatabase().reference().child('data');
+  TextEditingController _txt=TextEditingController( );
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('uploading'),
+      ),
+      body: Center(
+        child: Column(
+          children: <Widget>[
+            Text('selected image'),
+            _image != null
+                ? Image.asset(
+                    _image.path,
+                    height: 150.0,
+                  )
+                : Container(height: 150.0),
+            _image == null
+                ? RaisedButton(
+                    child: Text('choose File'),
+                    onPressed: chooseFile,
+                  )
+                : Container(),
+            _image != null
+                ? RaisedButton(
+                    child: Text('clear selection'), onPressed: uploadFile,
+            )
+                : Container(),
+            Text('upload image'),
+            _uploadFileURl != null
+                ? Image.network(
+                    _uploadFileURl,
+                    height: 150.0,
+                  )
+                : Container(),
+            RaisedButton(
+                child: Text('chatting app'),
+                onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatPage()));
+            })
+
+
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future chooseFile() async {
+    var file=await ImagePicker.pickImage(source: ImageSource.camera).then((image) {
+    setState(() {
+    _image = image;
+    });
+    });
+  }
+
+  Future uploadFile() async{
+    final databaseReference=FirebaseDatabase.instance.reference().child('ext');
+    databaseReference.push().set({
+      "images":_image.path,
+    });
+
+  }
+}
